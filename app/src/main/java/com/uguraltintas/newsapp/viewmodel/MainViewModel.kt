@@ -14,8 +14,8 @@ class MainViewModel(private val repository: MainRepository) : ViewModel(){
     val newsDataList = MutableLiveData<News>()
     val errorMessage = MutableLiveData<String>()
 
-    fun getWeatherData() {
-        val response = repository.getNewsData()
+    fun getWeatherData(country : String , apiKey : String) {
+        val response = repository.getNewsData(country , apiKey)
         response.enqueue(object : Callback<News> {
             override fun onResponse(
                 call: Call<News>,

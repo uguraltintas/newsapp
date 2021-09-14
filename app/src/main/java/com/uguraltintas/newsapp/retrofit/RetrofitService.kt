@@ -5,11 +5,12 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface RetrofitService {
 
-    @GET("top-headlines?country=tr&apiKey=2a1043ba6d434653b222eaddc40f97ce")
-    fun getNewsData() : Call<News>
+    @GET("top-headlines")
+    fun getNewsData(@Query("country") country : String, @Query("apiKey") apiKey : String) : Call<News>
 
     companion object {
         private val baseUrl = " https://newsapi.org/v2/"

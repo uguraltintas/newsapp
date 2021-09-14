@@ -1,18 +1,15 @@
 package com.uguraltintas.newsapp.view
 
-import android.app.SearchManager
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uguraltintas.newsapp.R
 import com.uguraltintas.newsapp.model.Article
-import com.uguraltintas.newsapp.model.News
 import com.uguraltintas.newsapp.repository.MainRepository
 import com.uguraltintas.newsapp.retrofit.RetrofitService
 import com.uguraltintas.newsapp.viewmodel.MainViewModel
@@ -35,7 +32,8 @@ class MainActivity : AppCompatActivity(),NewsAdapter.OnItemClickListener {
         viewModel.errorMessage.observe(this, Observer {
             print(it)
         })
-        viewModel.getWeatherData()
+
+        viewModel.getWeatherData(country,apiKey)
 
         recyclerView = findViewById(R.id.newsRecyclerView)
         recyclerView.adapter = adapter
@@ -48,6 +46,11 @@ class MainActivity : AppCompatActivity(),NewsAdapter.OnItemClickListener {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
         startActivity(intent)
 
+    }
+
+    companion object{
+        val country = "tr"
+        val apiKey = "YOUR-API-KEY"
     }
 
 }

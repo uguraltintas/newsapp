@@ -4,5 +4,5 @@ import com.uguraltintas.newsapp.retrofit.RetrofitService
 
 class MainRepository(private val retrofitService: RetrofitService) {
 
-    fun getNewsData() = retrofitService.getNewsData()
+    fun getNewsData(country : String , apiKey : String) = retrofitService.getNewsData(country, apiKey)
 }

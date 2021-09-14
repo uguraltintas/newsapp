@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.uguraltintas.newsapp.R
 import com.uguraltintas.newsapp.model.Article
-import com.uguraltintas.newsapp.model.News
+
 
 
 class NewsAdapter(
@@ -19,9 +19,11 @@ class NewsAdapter(
 
     inner class NewsVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newsImage = itemView.findViewById<ImageView>(R.id.newsImage)
+        val newsTitle = itemView.findViewById<TextView>(R.id.newsTitle)
         val newsDescription = itemView.findViewById<TextView>(R.id.newsDescription)
         val newsPublishedDate = itemView.findViewById<TextView>(R.id.newsPublishedDate)
         val newsAuthor = itemView.findViewById<TextView>(R.id.newsAuthor)
+
         init {
             itemView.setOnClickListener {
                 val position = adapterPosition
@@ -49,8 +51,11 @@ class NewsAdapter(
             .load(url)
             .centerCrop()
             .into(holder.newsImage);
+        holder.newsTitle.text = newsList[position].title
         holder.newsDescription.text = newsList[position].description
-        holder.newsPublishedDate.text = newsList[position].publishedAt
+        var date = newsList[position].publishedAt.split("T","Z")
+        val publishedDate = date[1] + " / " + date[0]
+        holder.newsPublishedDate.text = publishedDate
         holder.newsAuthor.text = newsList[position].source.name
     }
 
