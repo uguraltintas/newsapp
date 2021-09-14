@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.uguraltintas.newsapp.R
 import com.uguraltintas.newsapp.model.Article
 import com.uguraltintas.newsapp.repository.MainRepository
@@ -19,6 +20,7 @@ class MainActivity : AppCompatActivity(),NewsAdapter.OnItemClickListener {
     lateinit var viewModel: MainViewModel
     private val retrofitService = RetrofitService.getInstance()
     lateinit var recyclerView: RecyclerView
+    lateinit var swipeRefresh : SwipeRefreshLayout
     val adapter = NewsAdapter(arrayListOf(),this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +40,12 @@ class MainActivity : AppCompatActivity(),NewsAdapter.OnItemClickListener {
         recyclerView = findViewById(R.id.newsRecyclerView)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+
+        swipeRefresh = findViewById<SwipeRefreshLayout>(R.id.swipeRefresh)
+        swipeRefresh.setOnRefreshListener {
+            viewModel.getWeatherData(country,apiKey)
+            swipeRefresh.isRefreshing = false
+        }
 
     }
 
